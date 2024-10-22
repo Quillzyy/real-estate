@@ -1,0 +1,19 @@
+{
+    "name": "real-estate-project",
+    "version": "1.0.0",
+    "description": "A modern real estate web application using MERN stack. Created to challenge myself creating a full stack application.",
+    "main": "./api/index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon ./api/index.js",
+        "start": "node ./api/index.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.21.1"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.7"
+    }
+}

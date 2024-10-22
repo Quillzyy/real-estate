@@ -1,4 +1,0 @@
-{
-	"prettier.prettierPath": "./client/node_modules/prettier",
-	"prettier.configPath": "./client/.prettierrc"
-}

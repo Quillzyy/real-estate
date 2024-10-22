@@ -1,0 +1,4 @@
+[submodule "client"]
+	path = client
+	url = https://github.com/Quillzyy/real-estate.git
+	branch = main

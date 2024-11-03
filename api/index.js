@@ -3,9 +3,11 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
+import "./utils/firebase.js";
 
 dotenv.config();
 
+// Deprecated into firestore
 mongoose
     .connect(process.env.DB_URI)
     .then(() => {

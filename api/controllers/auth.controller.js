@@ -1,24 +1,14 @@
 import User from "../models/user.model.js";
-import { scryptSync, randomBytes } from "crypto";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
+import {
+    hashPassword,
+    comparePassword,
+    generateAndHashPassword,
+    generateUsername,
+} from "../utils/cryptography.js";
 
 // Callback for /models/auth.route.js
-
-function hashPassword(password) {
-    const salt = randomBytes(16).toString("hex");
-    const saltWord = scryptSync(password, salt, 64).toString("hex") + salt;
-    return Buffer.from(saltWord).toString("base64");
-}
-
-function comparePassword(localPassword, dbPassword) {
-    const decodeWord = Buffer.from(dbPassword, "base64").toString();
-    const salt = decodeWord.slice(-32);
-    const decodeSaltWord = decodeWord.slice(0, -32);
-    const saltWord = scryptSync(localPassword, salt, 64).toString("hex");
-
-    return decodeSaltWord === saltWord;
-}
 
 export async function signup(req, res, next) {
     try {
@@ -38,10 +28,10 @@ export async function signup(req, res, next) {
         }
 
         // Scrypt
-        const encodeWord = hashPassword(password);
+        const encodePassword = hashPassword(password);
 
         // Create new user
-        const newUser = new User({ username, email, password: encodeWord });
+        const newUser = new User({ username, email, password: encodePassword });
         // console.log(newUser);
         await newUser.save();
         res.status(201).json({ message: "User created successfully!" });
@@ -100,17 +90,14 @@ export async function google(req, res, next) {
             // console.log(validUser);
             // console.log(token);
         } else {
-            const generatedPassword = randomBytes(16).toString("hex");
-            const encodeWord = hashPassword(generatedPassword);
+            const encodePassword = generateAndHashPassword();
 
-            const generatedUsername =
-                username.split(" ").join("").toLowerCase() +
-                Math.random().toString(36).substring(7);
+            const generatedUsername = generateUsername(username);
 
             const newUser = new User({
                 username: generatedUsername,
                 email,
-                password: encodeWord,
+                password: encodePassword,
                 avatar: photo,
             });
             await newUser.save();
@@ -121,7 +108,7 @@ export async function google(req, res, next) {
                 .status(201)
                 .json(userWithoutPassword);
             // console.log("Google user created!");
-            // console.log(newUser);
+            console.log(newUser);
             // console.log(token);
         }
     } catch (err) {

@@ -1,5 +1,7 @@
 import express from "express";
-import { signup, signin, google } from "../controllers/auth.controller.js";
+import { signin, google } from "../controllers/auth.controller.js";
+import { signup } from "../controllers/auth.controller.firebase.js";
+// import { signup } from "../controllers/auth.controller.js";
 
 const router = express.Router();
 

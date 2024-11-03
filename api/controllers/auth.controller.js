@@ -5,8 +5,8 @@ import {
     hashPassword,
     comparePassword,
     generateAndHashPassword,
-    generateUsername,
 } from "../utils/cryptography.js";
+import { generateUsername } from "../utils/user.utils.js";
 
 // Callback for /models/auth.route.js
 

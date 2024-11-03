@@ -21,16 +21,4 @@ function generateAndHashPassword() {
     return encodePassword;
 }
 
-function generateUsername(username) {
-    return (
-        username.split(" ").join("").toLowerCase() +
-        Math.random().toString(36).substring(7)
-    );
-}
-
-export {
-    hashPassword,
-    comparePassword,
-    generateAndHashPassword,
-    generateUsername,
-};
+export { hashPassword, comparePassword, generateAndHashPassword };
